@@ -1,0 +1,11 @@
+﻿# Ignorar directorios de compilación de Maven
+/target/
+
+# Ignorar archivos del IDE (Eclipse/VS Code)
+.classpath
+.project
+.settings/
+*.log
+
+# Ignorar el Jar ejecutable
+*.jar
