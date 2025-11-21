@@ -39,4 +39,19 @@ public class CalculatorTest {
         // ASSERT
         assertEquals(expected, actual, "La suma con un número negativo debe ser correcta");
     }
+    
+    @Test
+    void testAdd0Number() {
+        // ARRANGE
+        Calculator calculator = new Calculator();
+        int a = 10;
+        int b = 0;
+        int expected = 10;
+
+        // ACT
+        int actual = calculator.add(a, b);
+
+        // ASSERT
+        assertEquals(expected, actual, "La suma con un número cero debe ser correcta");
+    }
 }
