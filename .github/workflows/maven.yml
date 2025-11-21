@@ -1,0 +1,41 @@
+name: Maven CI Build # Nombre que aparece en la pestaña "Actions" de GitHub
+
+# ------------------ EVENTOS (CUÁNDO EJECUTAR) ------------------
+# Este workflow se dispara automáticamente en estos eventos:
+on:
+  push:
+    branches: [ "main" ] # Al subir (push) a la rama principal
+  pull_request:
+    branches: [ "main" ] # Al crear un Pull Request hacia la rama principal
+
+# ------------------ TRABAJOS (QUÉ HACER) ------------------
+jobs:
+  build:
+    # El trabajo se ejecuta en un entorno Linux limpio
+    runs-on: ubuntu-latest
+    
+    steps:
+    # 1. Paso: Descargar el código del repositorio
+    - uses: actions/checkout@v4
+    
+    # 2. Paso: Configurar Java y Maven
+    - name: Set up JDK 21.0.8
+      uses: actions/setup-java@v4
+      with:
+        java-version: '21'
+        distribution: 'temurin'
+        cache: maven # Habilita el cacheo de dependencias de Maven para acelerar la ejecución
+        
+    # 3. Paso: Construir, Probar y Generar el Archivo ejecutable (.jar)
+    - name: Build, Test, and Package with Maven
+      # El comando 'install' garantiza que se compila, ejecutan tests y se crea el artefacto
+      run: mvn -B clean install
+      
+    # 4. Paso Opcional: Subir el Reporte de Cobertura de JaCoCo como Artefacto
+    # Esto te permite descargar el reporte HTML (index.html) desde GitHub
+    - name: Upload JaCoCo Report Artifact
+      if: always() # Siempre se ejecuta, incluso si los tests fallan (para ver los logs)
+      uses: actions/upload-artifact@v4
+      with:
+        name: jacoco-reporte
+        path: target/site/jacoco/
