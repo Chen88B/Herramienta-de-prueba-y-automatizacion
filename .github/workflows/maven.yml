@@ -4,9 +4,9 @@ name: Maven CI Build # Nombre que aparece en la pestaña "Actions" de GitHub
 # Este workflow se dispara automáticamente en estos eventos:
 on:
   push:
-    branches: [ "main" ] # Al subir (push) a la rama principal
+    branches: [ "master" ] # Al subir (push) a la rama principal
   pull_request:
-    branches: [ "main" ] # Al crear un Pull Request hacia la rama principal
+    branches: [ "master" ] # Al crear un Pull Request hacia la rama principal
 
 # ------------------ TRABAJOS (QUÉ HACER) ------------------
 jobs:
